@@ -16,5 +16,6 @@ public class PlayerSpeedController : MonoBehaviour
     public void ReturnToDefaultSpeed()
     {
         _pathFollower.speed = _defaultSpeed;
+        Obstacle.IsItCrashed = false;
     }
 }

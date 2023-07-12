@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] Transform _playerTransform;
 
-    private Vector3 targetPos;
+    private Vector3 _targetPos;
     private bool _isDragging = false;
 
     private Vector3 _lastPosition;
@@ -21,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private void MouseInput()
     {
-        if (Input.GetMouseButtonDown(0) && !Finish.IsGameFinished && !Obstacle.IsItCrashed)
+        if (Input.GetMouseButtonDown(0) && !Finish.IsGameFinished)
         {
             _isDragging = true;
             _lastPosition = Input.mousePosition;
@@ -35,11 +33,11 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        if (!_isDragging) return;
+        if (!_isDragging || Obstacle.IsItCrashed) return;
         
         float x = Mathf.Clamp(_playerTransform.localPosition.x + (MouseDelta().x * _speed / 1000), -_moveClamp, _moveClamp);
-        targetPos = new Vector3(x, _playerTransform.localPosition.y, _playerTransform.localPosition.z);
-        _playerTransform.localPosition = targetPos;
+        _targetPos = new Vector3(x, _playerTransform.localPosition.y, _playerTransform.localPosition.z);
+        _playerTransform.localPosition = _targetPos;
 
         float xPos = _playerTransform.localPosition.x;
         xPos = Mathf.Clamp(xPos, -_moveClamp, _moveClamp);

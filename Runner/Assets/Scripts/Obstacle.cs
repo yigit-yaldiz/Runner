@@ -31,8 +31,8 @@ public class Obstacle : MonoBehaviour
 
     void KickBackPreparation()
     {
-        PathFollower.Instance.speed = 0;
         IsItCrashed = true;
+        PathFollower.Instance.speed = 0;
     }
 
     IEnumerator KickBackLerp(float animTime)
@@ -49,7 +49,5 @@ public class Obstacle : MonoBehaviour
         }
 
         PathFollower.Instance.distanceTravelled = lastDistanceTravelled;
-
-        IsItCrashed = false;
     }
 }
