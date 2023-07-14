@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4d89d3e6cf477a44a6c7a04218b2e92, type: 3}
+  m_Name: Database
+  m_EditorClassIdentifier: 
+  objectsDatas:
+  - <Name>k__BackingField: Machine
+    <ID>k__BackingField: 1
+    <Size>k__BackingField: {x: 2, y: 6}
+    <Prefab>k__BackingField: {fileID: 2755732441945346921, guid: b5770b59cf316c746bb2227769340c56, type: 3}
+  - <Name>k__BackingField: Mini Truck
+    <ID>k__BackingField: 2
+    <Size>k__BackingField: {x: 2, y: 3}
+    <Prefab>k__BackingField: {fileID: 4752130190461831479, guid: c64008ee2bdf4e349b753ee721645c53, type: 3}
+  - <Name>k__BackingField: Car
+    <ID>k__BackingField: 3
+    <Size>k__BackingField: {x: 2, y: 3}
+    <Prefab>k__BackingField: {fileID: 8762097679216196907, guid: 992ed599a98eb054fb56e20a9690422e, type: 3}
+  - <Name>k__BackingField: Truck
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 2, y: 4}
+    <Prefab>k__BackingField: {fileID: 8231885967457747145, guid: ba4a7bf2be146be408279e99b59489ba, type: 3}
+  - <Name>k__BackingField: Sport Car
+    <ID>k__BackingField: 5
+    <Size>k__BackingField: {x: 2, y: 3}
+    <Prefab>k__BackingField: {fileID: 8667354741884672434, guid: 5ec5b640af0cf3641bd96f7d744b208f, type: 3}
+  - <Name>k__BackingField: Formula
+    <ID>k__BackingField: 6
+    <Size>k__BackingField: {x: 2, y: 4}
+    <Prefab>k__BackingField: {fileID: 820108579562472516, guid: 00ca865b084173942bc2b36f8e36585c, type: 3}

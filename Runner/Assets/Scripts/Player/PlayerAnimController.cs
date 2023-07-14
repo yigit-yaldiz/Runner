@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAnimController : MonoBehaviour
 {
     Animator _animator;
+    string _idleParameter = "Idle";
     string _victoryParameter = "GameFinished";
     string _speedUpParameter = "SpeedUp";
     string _runningParameter = "Running";
@@ -17,21 +18,28 @@ public class PlayerAnimController : MonoBehaviour
 
     private void OnEnable()
     {
-        Finish.GameFinished += PlayFinishAnimation;
+        Finish.StateFinished += PlayFinishAnimation;
         BoosterTrigger.SpeedUp += PlaySpeedUpAnimation;
         Obstacle.Crashed += PlayStumbleAnimation;
     }
 
     private void OnDisable()
     {
-        Finish.GameFinished -= PlayFinishAnimation;
+        Finish.StateFinished -= PlayFinishAnimation;
         BoosterTrigger.SpeedUp -= PlaySpeedUpAnimation;
         Obstacle.Crashed -= PlayStumbleAnimation;
     }
 
-    public void PlayFinishAnimation()
+    public void PlayFinishAnimation(StateMachine.GameStates state)
     {
-        _animator.SetTrigger(_victoryParameter);
+        if (StateMachine.Instance.GameState == StateMachine.GameStates.Merge)
+        {
+            _animator.SetTrigger(_idleParameter);
+        }
+        else if (StateMachine.Instance.GameState == StateMachine.GameStates.Race)
+        {
+            _animator.SetTrigger(_victoryParameter);
+        }
     }
 
     public void PlaySpeedUpAnimation(bool speedUp)
