@@ -13,10 +13,6 @@ public class DragDrop : MonoBehaviour
     bool _isInAir;
     int _vehicleIndex;
 
-    void Awake()
-    {
-        _parentPosition = transform.parent.position;
-    }
     private void OnEnable()
     {
         CarSelecting.CarSelected += DisableTheComponent;
@@ -69,6 +65,8 @@ public class DragDrop : MonoBehaviour
             return;
         }
 
+        _parentPosition = transform.parent.position;
+
         if (other.CompareTag("Vehicle") && !_isInAir && _vehicleIndex == other.GetComponent<DragDrop>().VehicleIndex)
         {
             if (_vehicleIndex != other.GetComponent<DragDrop>().VehicleIndex)
@@ -89,7 +87,7 @@ public class DragDrop : MonoBehaviour
     {
         int nextTier = _vehicleIndex + 1;
 
-        GameObject nextTierObject = Instantiate(PlacementSystem.Instance.Database.objectsDatas[nextTier].Prefab, transform.parent.parent);
+        GameObject nextTierObject = Instantiate(VehicleDatabase.Instance.Database.objectsDatas[nextTier].Prefab, transform.parent.parent);
         nextTierObject.GetComponentInChildren<DragDrop>().IsThatMerged = true;
         nextTierObject.GetComponentInChildren<DragDrop>().SetVehicleIndex(nextTier);
         nextTierObject.transform.position = _parentPosition;

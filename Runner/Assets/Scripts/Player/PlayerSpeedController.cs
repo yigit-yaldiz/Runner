@@ -15,12 +15,22 @@ public class PlayerSpeedController : MonoBehaviour
         _pathFollower = GetComponentInParent<PathFollower>();
     }
 
+    private void OnEnable()
+    {
+        BoosterTrigger.ReturnNormalSpeed += ReturnToDefaultSpeed;
+    }
+
+    private void OnDisable()
+    {
+        BoosterTrigger.ReturnNormalSpeed -= ReturnToDefaultSpeed;
+    }
+
     private void Start()
     {
         _defaultSpeed = _pathFollower.speed;
     }
 
-    public void ReturnToDefaultSpeed()
+    public void ReturnToDefaultSpeed() //animation event
     {
         _pathFollower.speed = _defaultSpeed;
         Obstacle.IsItCrashed = false;

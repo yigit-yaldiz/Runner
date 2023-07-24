@@ -28,7 +28,7 @@ public class Obstacle : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Crashed(_pathFollower);
+            Crashed?.Invoke(_pathFollower);
         }
     }
 
