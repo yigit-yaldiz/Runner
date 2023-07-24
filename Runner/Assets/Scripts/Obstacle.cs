@@ -1,53 +1,62 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using PathCreation.Examples;
 
 public class Obstacle : MonoBehaviour
 {
-    public static Action Crashed;
+    public static Action<PathFollower> Crashed;
     public static bool IsItCrashed;
 
     private void OnEnable()
     {
         Crashed += KickBackPreparation;
-        Crashed += () => { StartCoroutine(KickBackLerp(1f)); };
+        Crashed += KickBack;
+        //Crashed += () => { StartCoroutine(KickBackLerp(1f)); };
     }
 
     private void OnDisable()
     {
         Crashed -= KickBackPreparation;
-        Crashed -= () => { StartCoroutine(KickBackLerp(1f)); };
+        Crashed -= KickBack;
+        //Crashed -= () => { StartCoroutine(KickBackLerp(1f)); };
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        PathFollower _pathFollower = other.GetComponentInParent<PathFollower>();
+
         if (other.gameObject.CompareTag("Player"))
         {
-            Crashed();
+            Crashed(_pathFollower);
         }
     }
 
-    void KickBackPreparation()
+    void KickBackPreparation(PathFollower pathFollower)
     {
         IsItCrashed = true;
-        PathFollower.Instance.speed = 0;
+        pathFollower.speed = 0;
     }
 
-    IEnumerator KickBackLerp(float animTime)
+
+    void KickBack(PathFollower pathFollower)
     {
-        float elapsedTime = 0;
-        float firstDistanceTravelled = PathFollower.Instance.distanceTravelled;
-        float lastDistanceTravelled = firstDistanceTravelled - 2f;
+        StartCoroutine(KickBackLerp(1f));
 
-        while (elapsedTime < animTime)
+        IEnumerator KickBackLerp(float animTime)
         {
-            elapsedTime += Time.deltaTime;
-            PathFollower.Instance.distanceTravelled = Mathf.Lerp(firstDistanceTravelled, lastDistanceTravelled, elapsedTime / animTime);
-            yield return null;
-        }
+            float elapsedTime = 0;
+            float firstDistanceTravelled = pathFollower.distanceTravelled;
+            float lastDistanceTravelled = firstDistanceTravelled - 2f;
 
-        PathFollower.Instance.distanceTravelled = lastDistanceTravelled;
+            while (elapsedTime < animTime)
+            {
+                elapsedTime += Time.deltaTime;
+                pathFollower.distanceTravelled = Mathf.Lerp(firstDistanceTravelled, lastDistanceTravelled, elapsedTime / animTime);
+                yield return null;
+            }
+
+            pathFollower.distanceTravelled = lastDistanceTravelled;
+        }
     }
 }

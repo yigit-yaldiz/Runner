@@ -15,7 +15,7 @@ public class VirtualCameraController : MonoBehaviour
         Finish.StateFinished -= ChangeTheCamera;
     }
 
-    void ChangeTheCamera(StateMachine.GameStates state)
+    void ChangeTheCamera(GameStates state)
     {
         foreach (GameObject camera in _virtualCameras)
         {
@@ -23,6 +23,11 @@ public class VirtualCameraController : MonoBehaviour
         }
 
         int nextCameraIndex = (int)state + 1;
+
+        if (nextCameraIndex >= _virtualCameras.Count)
+        {
+            return;
+        }
 
         _virtualCameras[nextCameraIndex].SetActive(true);
     }

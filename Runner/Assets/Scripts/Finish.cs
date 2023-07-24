@@ -1,13 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using PathCreation.Examples;
+using Cinemachine;
 
 public class Finish : MonoBehaviour
 {
-    public static bool IsGameFinished;
-    public static Action<StateMachine.GameStates> StateFinished;
+    public static bool IsRunnerFinished;
+    public static bool IsRaceFinished;
+    public static Action<GameStates> StateFinished;
+
+    [SerializeField] Cinemachine.CinemachineVirtualCamera _raceCam;
 
     private void OnEnable()
     {
@@ -21,17 +22,40 @@ public class Finish : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        StateMachine.GameStates state = StateMachine.Instance.GameState;
+        GameStates state = StateMachine.Instance.GameState;
 
         if (other.CompareTag("Player"))
         {
             StateFinished(state);
-            IsGameFinished = true;
+
+            if (state == GameStates.Runner)
+            {
+                IsRunnerFinished = true;
+            }
+            else if (state == GameStates.Race)
+            {
+                Debug.Log("You won");
+                IsRaceFinished = true;
+            }
         }
     }
 
-    void GoToNextState(StateMachine.GameStates state)
+    void GoToNextState(GameStates state)
     {
         StateMachine.Instance.SetTheState(state + 1);
+    }
+
+    public void FollowTheMergedVehicle(GameObject car)
+    {
+        _raceCam.Follow = car.transform;
+        _raceCam.LookAt = car.transform;
+    }
+
+    public void OnRaceButtonClick()
+    {
+        GameStates state = StateMachine.Instance.GameState;
+        FollowTheMergedVehicle(CarSelecting.Instance.MergedVehicle);
+        UIElementsController.Instance.CountdownText.gameObject.SetActive(true);
+        StateFinished(state);
     }
 }

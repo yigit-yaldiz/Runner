@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class DragDrop : MonoBehaviour
 {
-    [SerializeField] PlacementSystem _placementSystem;
-
     public int VehicleIndex => _vehicleIndex;
+    public bool IsThatMerged;
 
     Vector3 _mousePosition;
     Vector3 _parentPosition;
@@ -16,8 +15,16 @@ public class DragDrop : MonoBehaviour
 
     void Awake()
     {
-        _placementSystem = FindObjectOfType<PlacementSystem>();
         _parentPosition = transform.parent.position;
+    }
+    private void OnEnable()
+    {
+        CarSelecting.CarSelected += DisableTheComponent;
+    }
+
+    private void OnDisable()
+    {
+        CarSelecting.CarSelected -= DisableTheComponent;
     }
 
     #region Drag & Drop
@@ -28,7 +35,7 @@ public class DragDrop : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (StateMachine.Instance.GameState != StateMachine.GameStates.Merge)
+        if (StateMachine.Instance.GameState != GameStates.Merge)
         {
             return;
         }
@@ -38,7 +45,7 @@ public class DragDrop : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (StateMachine.Instance.GameState != StateMachine.GameStates.Merge)
+        if (StateMachine.Instance.GameState != GameStates.Merge)
         {
             return;
         }
@@ -48,22 +55,28 @@ public class DragDrop : MonoBehaviour
         transform.parent.position = RoundThePoint(objectPos, 1f);
         _isInAir = true;
     }
+
+    private void OnMouseUp()
+    {
+        _isInAir = false;
+    }
     #endregion
 
     private void OnTriggerEnter(Collider other)
     {
-        if (StateMachine.Instance.GameState != StateMachine.GameStates.Merge)
+        if (StateMachine.Instance.GameState != GameStates.Merge)
         {
             return;
         }
 
         if (other.CompareTag("Vehicle") && !_isInAir && _vehicleIndex == other.GetComponent<DragDrop>().VehicleIndex)
         {
+            if (_vehicleIndex != other.GetComponent<DragDrop>().VehicleIndex)
+            {
+                Debug.LogWarning("Vehicle indexs are not equal !");
+            }
+
             UpgradeTier(other);
-        }
-        else
-        {
-            Debug.LogWarning("Vehicle indexs are not equal !");
         }
     }
 
@@ -75,14 +88,19 @@ public class DragDrop : MonoBehaviour
     void UpgradeTier(Collider other)
     {
         int nextTier = _vehicleIndex + 1;
-        Debug.Log(nextTier);
 
-        GameObject nextTierObject = Instantiate(_placementSystem.Database.objectsDatas[nextTier].Prefab, transform.parent.parent);
+        GameObject nextTierObject = Instantiate(PlacementSystem.Instance.Database.objectsDatas[nextTier].Prefab, transform.parent.parent);
+        nextTierObject.GetComponentInChildren<DragDrop>().IsThatMerged = true;
         nextTierObject.GetComponentInChildren<DragDrop>().SetVehicleIndex(nextTier);
         nextTierObject.transform.position = _parentPosition;
 
         Destroy(other.transform.parent.gameObject);
         Destroy(transform.parent.gameObject);
+    }
+
+    void DisableTheComponent(Collider other)
+    {
+        enabled = false;
     }
 
     private Vector3 RoundThePoint(Vector3 position, float digitAmount)

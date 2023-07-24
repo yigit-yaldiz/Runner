@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PathCreation.Examples;
 
 public class PlayerAnimController : MonoBehaviour
 {
@@ -30,13 +31,13 @@ public class PlayerAnimController : MonoBehaviour
         Obstacle.Crashed -= PlayStumbleAnimation;
     }
 
-    public void PlayFinishAnimation(StateMachine.GameStates state)
+    public void PlayFinishAnimation(GameStates state)
     {
-        if (StateMachine.Instance.GameState == StateMachine.GameStates.Merge)
+        if (state == GameStates.Merge - 1)
         {
             _animator.SetTrigger(_idleParameter);
         }
-        else if (StateMachine.Instance.GameState == StateMachine.GameStates.Race)
+        else if (state == GameStates.Race)
         {
             _animator.SetTrigger(_victoryParameter);
         }
@@ -54,7 +55,7 @@ public class PlayerAnimController : MonoBehaviour
         }
     }
 
-    public void PlayStumbleAnimation()
+    public void PlayStumbleAnimation(PathFollower pathFollower)
     {
         _animator.SetTrigger(_stumbleParameter);
     }

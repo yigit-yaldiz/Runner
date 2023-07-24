@@ -19,6 +19,20 @@ public class PlacementSystem : MonoBehaviour
     int _selectedObjectIndex = -1;
     Vector3 _offset = new Vector3(0, 0, -1);
 
+    public static PlacementSystem Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     private void OnEnable()
     {
         _inputManager.OnClicked += PlaceStructure;

@@ -286,6 +286,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1248097627462826984}
+  - component: {fileID: 8178170363956088936}
+  - component: {fileID: 2982690043609430890}
   m_Layer: 0
   m_Name: Mini Truck
   m_TagString: Untagged
@@ -308,6 +310,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8178170363956088936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752130190461831479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efae55915be262a449461514ffae6078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 7
+  _car: {fileID: 6927270695516493790}
+  _offset: {x: 0, y: 0, z: 0}
+--- !u!114 &2982690043609430890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4752130190461831479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33aabe1a2dec93349b06e6e5dc51bc06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathCreator: {fileID: 0}
+  endOfPathInstruction: 2
+  speed: 0
+  distanceTravelled: 0
 --- !u!1 &5105617612294511129
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,8 +468,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.43397325, y: 0.4368319, z: 0.9821951}
-  m_Center: {x: -0.00000015894572, y: 0.0014294982, z: -0.0024365585}
+  m_Size: {x: 0.43397325, y: 0.4292071, z: 0.9821951}
+  m_Center: {x: -0.00000015894572, y: 0.005241871, z: -0.0024365585}
 --- !u!54 &6991795650375990991
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -465,7 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385cead3882031341bd1c7188b214d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placementSystem: {fileID: 0}
+  IsThatMerged: 0
 --- !u!1 &7411540728058481393
 GameObject:
   m_ObjectHideFlags: 0

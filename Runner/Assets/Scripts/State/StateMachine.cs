@@ -1,16 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameStates
+{
+    Runner,
+    Merge,
+    Race
+}
+
 public class StateMachine : MonoBehaviour
 {
-    public enum GameStates
-    {
-        Runner,
-        Merge,
-        Race
-    }
-
     public static StateMachine Instance { get; private set; }
     public GameStates GameState => _gameState; 
 

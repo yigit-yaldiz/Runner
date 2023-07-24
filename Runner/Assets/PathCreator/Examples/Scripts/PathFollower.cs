@@ -11,13 +11,6 @@ namespace PathCreation.Examples
         public float speed;
         public float distanceTravelled;
 
-        public static PathFollower Instance { get; private set; }
-
-        private void Awake()
-        {
-            Instance = this;
-        }
-
         void Start() 
         {
             if (pathCreator != null)

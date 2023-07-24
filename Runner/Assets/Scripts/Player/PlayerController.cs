@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private void MouseInput()
     {
-        if (Input.GetMouseButtonDown(0) && !Finish.IsGameFinished)
+        if (Input.GetMouseButtonDown(0) && !Finish.IsRunnerFinished)
         {
             _isDragging = true;
             _lastPosition = Input.mousePosition;

@@ -5,10 +5,17 @@ using PathCreation.Examples;
 
 public class PlayerSpeedController : MonoBehaviour
 {
-    [SerializeField] PathFollower _pathFollower;
+    public PathFollower PathFollower => _pathFollower;
+
+    PathFollower _pathFollower;
     float _defaultSpeed;
 
     private void Awake()
+    {
+        _pathFollower = GetComponentInParent<PathFollower>();
+    }
+
+    private void Start()
     {
         _defaultSpeed = _pathFollower.speed;
     }

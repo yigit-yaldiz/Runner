@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5255877369139728449}
   - component: {fileID: 1011285875195447760}
   - component: {fileID: 2118620893536873454}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Red Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,5 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af9ef5e3d68fd04f8661a0aa26fd42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 1
   _car: {fileID: 0}
   _offset: {x: 2, y: 0, z: 0}

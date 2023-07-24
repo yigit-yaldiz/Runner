@@ -17,13 +17,26 @@ public class EnemyCar : MonoBehaviour
         _racePathFollower.speed = 0;
     }
 
-    private void Update()
+    private void OnEnable()
+    {
+        RaceStarter.RaceStarted += LetsRace;
+    }
+
+    private void OnDisable()
+    {
+        RaceStarter.RaceStarted -= LetsRace;
+    }
+
+    private void Start()
     {
         if (_car == null)
         {
             _car = transform.GetChild(0).transform;
         }
+    }
 
+    private void Update()
+    {
         ChangePosition();  
     }
 
@@ -34,5 +47,13 @@ public class EnemyCar : MonoBehaviour
         //pos.y = _offset.y;
         //pos.z = _offset.z;
         _car.transform.localPosition = pos;
+    }
+
+    void LetsRace(GameStates gameState)
+    {
+        if (gameState == GameStates.Merge)
+        {
+            _racePathFollower.speed = _speed;
+        }
     }
 }
